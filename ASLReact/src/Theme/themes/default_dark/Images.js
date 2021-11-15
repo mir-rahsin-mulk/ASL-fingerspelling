@@ -4,9 +4,7 @@
 
 export default function () {
   return {
-    logo: {
-      uri:
-        'https://thecodingmachine.github.io/react-native-aslreact/img/TOM-small.png',
-    },
-  }
+    logo: 
+      require('@/Assets/Images/emptyred.png')
+    }
 }

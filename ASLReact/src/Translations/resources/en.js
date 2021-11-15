@@ -1,5 +1,5 @@
 export default {
-  welcome: 'Welcome to React Native ASLReact by TheCodingMachine',
+  welcome: 'Welcome to FingerSpelling',
   actions: {
     continue: 'Continue',
   },
