@@ -13,7 +13,7 @@ import { useTheme } from '@/Hooks'
 import { useLazyFetchOneQuery } from '@/Services/modules/users'
 import { changeTheme } from '@/Store/Theme'
 
-const HomeContainer = () => {
+const WelcomeContainer = () => {
   const { t } = useTranslation()
   const { Common, Fonts, Gutters, Layout } = useTheme()
   const dispatch = useDispatch()
@@ -37,4 +37,4 @@ const HomeContainer = () => {
   )
 }
 
-export default HomeContainer
+export default WelcomeContainer

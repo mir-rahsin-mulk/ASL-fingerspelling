@@ -9,12 +9,11 @@ import {
 } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { FingerSign } from '@/Components'
 import { useTheme } from '@/Hooks'
 import { useLazyFetchOneQuery } from '@/Services/modules/users'
 import { changeTheme } from '@/Store/Theme'
 
-const InstructionsContainer = () => {
+const ScoreContainer = () => {
   const { t } = useTranslation()
   const { Common, Fonts, Gutters, Layout } = useTheme()
   const dispatch = useDispatch()
@@ -27,17 +26,19 @@ const InstructionsContainer = () => {
     <View
       style={Layout.screenContainer}
     >
-      <Text style={[Fonts.titleSmall, Layout.center, Gutters.regularBMargin]}>{'A'}</Text>
-      <FingerSign />
-      <Text style={[Fonts.textRegular, Layout.center, Gutters.regularBMargin]}>{t('instructionA')}</Text>
-      <Text style={[Fonts.textRegular, Layout.center, Gutters.regularBMargin]}>{t('instructionBody')}</Text>
+      <Text style={[Fonts.textRegular, Layout.center, Gutters.regularBMargin]}>{t('scoreBody'), { score: 'nil' }}</Text>
       <TouchableOpacity
         style={[Common.button.rounded, Gutters.regularBMargin]}
       >
-        <Text style={Fonts.textRegular}>{t('instructionStartButton')}</Text>
+        <Text style={Fonts.textRegular}>{t('scoreButtonTry')}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[Common.button.rounded, Gutters.regularBMargin]}
+      >
+        <Text style={Fonts.textRegular}>{t('scoreButtonHome')}</Text>
       </TouchableOpacity>
     </View>
   )
 }
 
-export default InstructionsContainer
+export default ScoreContainer

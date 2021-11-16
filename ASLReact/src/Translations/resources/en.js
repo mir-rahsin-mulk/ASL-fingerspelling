@@ -5,6 +5,9 @@ export default {
   instructionA: 'The picture shows the A sign. The palm is facing forward.',
   instructionStartButton: 'Start Test',
   instructionBody: 'Click the button to try it yourself!',
+  scoreBody: 'You scored {{score}}!',
+  scoreButtonTry: 'Try again',
+  scoreButtonHome: 'Go home',
   actions: {
     continue: 'Continue',
   },
