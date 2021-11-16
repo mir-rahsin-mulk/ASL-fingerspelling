@@ -9,4 +9,5 @@ export default {
       userId: 'Enter a user id',
     },
   },
+  selectLetter: 'Select a letter to learn the fingerspelling sign',
 }

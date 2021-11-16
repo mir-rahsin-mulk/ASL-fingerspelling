@@ -18,19 +18,11 @@ const HomeContainer = () => {
   const { t } = useTranslation()
   const { Common, Fonts, Gutters, Layout } = useTheme()
   const dispatch = useDispatch()
-  const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-                    'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-
-  const [userId, setUserId] = useState('9')
   const [
     fetchOne,
     { data, isSuccess, isLoading, isFetching, error },
   ] = useLazyFetchOneQuery()
-
-  const onChangeTheme = ({ theme, darkMode }) => {
-    dispatch(changeTheme({ theme, darkMode }))
-  }
-
+  
   return (
     <ScrollView
       style={Layout.fill}
@@ -38,15 +30,12 @@ const HomeContainer = () => {
         Layout.center,
       ]}
     >
-      <Text style={Fonts.textRegular}>{t('selectLetter')}</Text>
-      <ScrollView>
-          {alphabet.map((letter, i) =>
-            <TouchableOpacity obj={letter} key={i} style={[Common.button.rounded, Gutters.regularBMargin]}>
-                <Text style={Fonts.textRegular}>{letter}</Text>
-            </TouchableOpacity>
-          )}
-      </ScrollView>
-      
+      <Text style={Fonts.textRegular}>{t('welcome')}</Text>
+      <TouchableOpacity
+        style={[Common.button.rounded, Gutters.regularBMargin]}
+      >
+        <Text style={Fonts.textRegular}>Get Started</Text>
+      </TouchableOpacity>
     </ScrollView>
   )
 }
