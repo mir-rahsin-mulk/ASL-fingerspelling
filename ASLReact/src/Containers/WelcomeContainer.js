@@ -22,21 +22,19 @@ const HomeContainer = () => {
     fetchOne,
     { data, isSuccess, isLoading, isFetching, error },
   ] = useLazyFetchOneQuery()
-  
+
   return (
-    <ScrollView
-      style={Layout.fill}
-      contentContainerStyle={[
-        Layout.center,
-      ]}
+    <View
+      style={Layout.screenContainer}
     >
-      <Text style={Fonts.textRegular}>{t('welcome')}</Text>
+      <Text style={[Fonts.titleSmall, Layout.center, Gutters.regularBMargin]}>{t('welcomeTitle')}</Text>
+      <Text style={[Fonts.textRegular, Layout.center, Gutters.regularBMargin]}>{t('welcomeBody')}</Text>
       <TouchableOpacity
         style={[Common.button.rounded, Gutters.regularBMargin]}
       >
-        <Text style={Fonts.textRegular}>Get Started</Text>
+        <Text style={Fonts.textRegular}>{t('welcomeButton')}</Text>
       </TouchableOpacity>
-    </ScrollView>
+    </View>
   )
 }
 

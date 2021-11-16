@@ -33,12 +33,12 @@ const HomeContainer = () => {
 
   return (
     <ScrollView
-      style={Layout.fill}
+      style={Layout.fill, Layout.screenContainer}
       contentContainerStyle={[
         Layout.center,
       ]}
     >
-      <Text style={Fonts.textRegular}>{t('selectLetter')}</Text>
+      <Text style={[Fonts.textRegular, Gutters.regularBMargin]}>{t('selectLetter')}</Text>
       <ScrollView>
           {alphabet.map((letter, i) =>
             <TouchableOpacity obj={letter} key={i} style={[Common.button.rounded, Gutters.regularBMargin]}>

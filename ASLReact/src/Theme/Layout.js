@@ -7,6 +7,13 @@ import { StyleSheet } from 'react-native'
  */
 export default function () {
   return StyleSheet.create({
+    /* Screen Layouts */
+    screenContainer: {
+      marginTop:20,
+      marginLeft: 20,
+      marginRight: 20,
+      marginBottom: 20,
+    },
     /* Column Layouts */
     column: {
       flexDirection: 'column',

@@ -1,5 +1,7 @@
 export default {
-  welcome: 'Welcome to FingerSpelling',
+  welcomeTitle: 'Welcome to Fingerspell',
+  welcomeBody: 'This app is designed to help you learn how to make ASL fingerspelling signs. Press Get Started to learn your first letter!',
+  welcomeButton: 'Get Started',
   actions: {
     continue: 'Continue',
   },
@@ -9,5 +11,5 @@ export default {
       userId: 'Enter a user id',
     },
   },
-  selectLetter: 'Select a letter to learn the fingerspelling sign',
+  homeBody: 'Select a letter to learn the fingerspelling sign',
 }
