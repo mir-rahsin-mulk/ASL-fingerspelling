@@ -27,7 +27,7 @@ const HomeContainer = () => {
     <View
       style={Layout.screenContainer}
     >
-      <Text style={[Fonts.titleSmall, Layout.center, Gutters.regularBMargin]}>{t('A')}</Text>
+      <Text style={[Fonts.titleSmall, Layout.center, Gutters.regularBMargin]}>{'A'}</Text>
       <FingerSign />
       <Text style={[Fonts.textRegular, Layout.center, Gutters.regularBMargin]}>{t('instructionA')}</Text>
       <Text style={[Fonts.textRegular, Layout.center, Gutters.regularBMargin]}>{t('instructionBody')}</Text>
