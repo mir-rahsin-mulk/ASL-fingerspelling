@@ -22,6 +22,10 @@ const WelcomeContainer = () => {
     { data, isSuccess, isLoading, isFetching, error },
   ] = useLazyFetchOneQuery()
 
+  const onChangeTheme = ({ theme, darkMode }) => {
+    dispatch(changeTheme({ theme, darkMode }))
+  }
+
   return (
     <View
       style={Layout.screenContainer}
@@ -32,6 +36,19 @@ const WelcomeContainer = () => {
         style={[Common.button.rounded, Gutters.regularBMargin]}
       >
         <Text style={Fonts.textRegular}>{t('welcomeButton')}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[Common.button.outlineRounded, Gutters.regularBMargin]}
+        onPress={() => onChangeTheme({ darkMode: true })}
+      >
+        <Text style={Fonts.textRegular}>Dark</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={[Common.button.outlineRounded, Gutters.regularBMargin]}
+        onPress={() => onChangeTheme({ darkMode: false })}
+      >
+        <Text style={Fonts.textRegular}>Light</Text>
       </TouchableOpacity>
     </View>
   )

@@ -1,3 +1,5 @@
 export { default as StartupContainer } from './StartupContainer'
 export { default as HomeContainer } from './HomeContainer'
 export { default as WelcomeContainer } from './WelcomeContainer'
+export { default as InstructionsContainer } from './InstructionsContainer'
+export { default as ScoreContainer } from './ScoreContainer'

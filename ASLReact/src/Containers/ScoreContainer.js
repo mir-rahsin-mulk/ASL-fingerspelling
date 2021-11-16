@@ -26,7 +26,7 @@ const ScoreContainer = () => {
     <View
       style={Layout.screenContainer}
     >
-      <Text style={[Fonts.textRegular, Layout.center, Gutters.regularBMargin]}>{t('scoreBody'), { score: 'nil' }}</Text>
+      <Text style={[Fonts.textRegular, Layout.center, Gutters.regularBMargin]}>{t('scoreBody', { score: 'nil' })}</Text>
       <TouchableOpacity
         style={[Common.button.rounded, Gutters.regularBMargin]}
       >

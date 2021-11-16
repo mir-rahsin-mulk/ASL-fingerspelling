@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { HomeContainer } from '@/Containers'
 import { WelcomeContainer } from '@/Containers'
 import { InstructionsContainer } from '@/Containers'
+import { ScoreContainer } from '@/Containers'
 
 const Tab = createBottomTabNavigator()
 
@@ -13,6 +14,7 @@ const MainNavigator = () => {
       <Tab.Screen name="Welcome" component={WelcomeContainer} />
       <Tab.Screen name="Home" component={HomeContainer} />
       <Tab.Screen name="Instructions" component={InstructionsContainer} />
+      <Tab.Screen name="Score" component={ScoreContainer} />
     </Tab.Navigator>
   )
 }

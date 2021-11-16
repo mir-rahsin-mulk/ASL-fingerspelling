@@ -6,12 +6,12 @@
 export default function () {
   return {
     logo: require('@/Assets/Images/emptyred.png'),
-    signA: require('@/Assets/Images/A.png'),
-    signB: require('@/Assets/Images/B.png'),
-    signC: require('@/Assets/Images/C.png'),
-    signD: require('@/Assets/Images/D.png'),
-    signE: require('@/Assets/Images/E.png'),
-    signF: require('@/Assets/Images/F.png'),
-    signG: require('@/Assets/Images/G.png'),
+    signA: require('@/Assets/Images/A.jpg'),
+    signB: require('@/Assets/Images/B.jpg'),
+    signC: require('@/Assets/Images/C.jpg'),
+    signD: require('@/Assets/Images/D.jpg'),
+    signE: require('@/Assets/Images/E.jpg'),
+    signF: require('@/Assets/Images/F.jpg'),
+    signG: require('@/Assets/Images/G.jpg'),
   }
 }

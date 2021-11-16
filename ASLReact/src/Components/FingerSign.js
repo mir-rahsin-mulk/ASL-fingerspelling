@@ -8,18 +8,18 @@ const FingerSign = ({ height, width, mode, letter }) => {
 
   return (
     <View style={{ height, width }}>
-      <Image style={Layout.fullSize} source={Images.A} resizeMode={mode} />
+      <Image style={Layout.fullSize} source={Images.signA} resizeMode={mode} />
     </View>
   )
 }
 
-Brand.propTypes = {
+FingerSign.propTypes = {
   height: PropTypes.number,
   mode: PropTypes.oneOf(['contain', 'cover', 'stretch', 'repeat', 'center']),
   width: PropTypes.number,
 }
 
-Brand.defaultProps = {
+FingerSign.defaultProps = {
   height: 200,
   mode: 'contain',
   width: 200,

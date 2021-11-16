@@ -27,10 +27,10 @@ const InstructionsContainer = () => {
     <View
       style={Layout.screenContainer}
     >
-      <Text style={[Fonts.titleSmall, Layout.center, Gutters.regularBMargin]}>{'A'}</Text>
-      <FingerSign />
+      <Text style={[Fonts.titleRegular, Layout.center, Gutters.regularBMargin]}>{'A'}</Text>
+      <View style={[Fonts.textRegular, Layout.center, Gutters.regularBMargin]}><FingerSign /></View>
       <Text style={[Fonts.textRegular, Layout.center, Gutters.regularBMargin]}>{t('instructionA')}</Text>
-      <Text style={[Fonts.textRegular, Layout.center, Gutters.regularBMargin]}>{t('instructionBody')}</Text>
+      <Text style={[Fonts.textRegular, Gutters.regularBMargin]}>{t('instructionBody')}</Text>
       <TouchableOpacity
         style={[Common.button.rounded, Gutters.regularBMargin]}
       >
