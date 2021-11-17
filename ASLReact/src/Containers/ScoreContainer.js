@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next'
 import { useTheme } from '@/Hooks'
 import { useLazyFetchOneQuery } from '@/Services/modules/users'
 import { changeTheme } from '@/Store/Theme'
+import { navigate } from '../Navigators/utils'
 
 const ScoreContainer = () => {
   const { t } = useTranslation()
@@ -34,6 +35,7 @@ const ScoreContainer = () => {
       </TouchableOpacity>
       <TouchableOpacity
         style={[Common.button.rounded, Gutters.regularBMargin]}
+        onPress={() => navigate('Home')}
       >
         <Text style={Fonts.textRegular}>{t('scoreButtonHome')}</Text>
       </TouchableOpacity>

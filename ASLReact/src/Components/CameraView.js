@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react';
 import { AppRegistry, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import CameraRoll from "@react-native-community/cameraroll";
 import { RNCamera } from 'react-native-camera';
+import { navigate } from '../Navigators/utils'
 
 class CameraView extends PureComponent {
     render() {
@@ -42,6 +43,7 @@ class CameraView extends PureComponent {
         const data = await this.camera.takePictureAsync(options);
         CameraRoll.saveToCameraRoll(data.uri);
         console.log(data.uri);
+        navigate('Score')
       }
     };
   }

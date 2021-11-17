@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next'
 import { useTheme } from '@/Hooks'
 import { useLazyFetchOneQuery } from '@/Services/modules/users'
 import { changeTheme } from '@/Store/Theme'
+import { navigate } from '../Navigators/utils'
 
 const WelcomeContainer = () => {
   const { t } = useTranslation()
@@ -34,6 +35,7 @@ const WelcomeContainer = () => {
       <Text style={[Fonts.textRegular, Layout.center, Gutters.regularBMargin]}>{t('welcomeBody')}</Text>
       <TouchableOpacity
         style={[Common.button.rounded, Gutters.regularBMargin]}
+        onPress={() => navigate('Home')}
       >
         <Text style={Fonts.textRegular}>{t('welcomeButton')}</Text>
       </TouchableOpacity>

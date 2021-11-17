@@ -13,6 +13,7 @@ import { FingerSign } from '@/Components'
 import { useTheme } from '@/Hooks'
 import { useLazyFetchOneQuery } from '@/Services/modules/users'
 import { changeTheme } from '@/Store/Theme'
+import { navigate } from '../Navigators/utils'
 
 const InstructionsContainer = () => {
   const { t } = useTranslation()
@@ -33,6 +34,7 @@ const InstructionsContainer = () => {
       <Text style={[Fonts.textRegular, Gutters.regularBMargin]}>{t('instructionBody')}</Text>
       <TouchableOpacity
         style={[Common.button.rounded, Gutters.regularBMargin]}
+        onPress={() => navigate('Camera')}
       >
         <Text style={Fonts.textRegular}>{t('instructionStartButton')}</Text>
       </TouchableOpacity>

@@ -13,6 +13,7 @@ import { Brand } from '@/Components'
 import { useTheme } from '@/Hooks'
 import { useLazyFetchOneQuery } from '@/Services/modules/users'
 import { changeTheme } from '@/Store/Theme'
+import { navigate } from '../Navigators/utils'
 
 const HomeContainer = () => {
   const { t } = useTranslation()
@@ -41,7 +42,9 @@ const HomeContainer = () => {
       <Text style={[Fonts.textRegular, Gutters.regularBMargin]}>{t('selectLetter')}</Text>
       <ScrollView>
           {alphabet.map((letter, i) =>
-            <TouchableOpacity obj={letter} key={i} style={[Common.button.rounded, Gutters.regularBMargin]}>
+            <TouchableOpacity
+              onPress={() => navigate('Instructions')}
+              obj={letter} key={i} style={[Common.button.rounded, Gutters.regularBMargin]}>
                 <Text style={Fonts.textRegular}>{letter}</Text>
             </TouchableOpacity>
           )}
