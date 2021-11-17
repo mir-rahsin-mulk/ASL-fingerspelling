@@ -6,6 +6,9 @@ import sys
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.applications.resnet50 import preprocess_input
+import keras.applications.vgg16 as vgg16
+import keras
+from keras.preprocessing import image
 
 def img_resize(width, height, img_file, new_name=None):
     img_path = os.path.join('images', img_file)
@@ -14,28 +17,38 @@ def img_resize(width, height, img_file, new_name=None):
     if new_name != None:
         img_path = os.path.join('images', new_name)
     img.save(img_path)
-    return img
+    return img_path
 
-def predict_image(model_file, img):
+def path_to_tensor(img_path):
+    img = image.load_img(img_path, target_size=(224, 224), grayscale=False)
+    x = image.img_to_array(img)
+    return np.expand_dims(x, axis=0)
+
+def predict_image(model_file, img_path):
     model_path = os.path.join('models', model_file)
-    model = tf.keras.models.load_model(model_path)
+    model = keras.models.load_model(model_path)
     model.summary()
-    # Retrieve a batch of images from the test set
-    # image_batch, label_batch = test_dataset.as_numpy_iterator().next()
-    # predictions = model.predict_on_batch(image_batch).flatten()
-    img_array  = tf.keras.preprocessing.image.img_to_array(img)
-    img_batch = np.expand_dims(img_array, axis=0)
-    img_preprocessed = preprocess_input(img_batch)
-    prediction = model.predict_on_batch(img_batch)
 
-    # plt.imshow(img)
-    # plt.show()
+    print("finding tensor...")
+    tensor = path_to_tensor(img_path)
+
+    print("preprocessing...")
+    img_preprocessed = preprocess_input(tensor)
+
+    print("predicting...")
+    features_test = model.predict(img_preprocessed)
+
+    print(features_test)
+
+    plt.imshow(Image.open(img_path))
+    plt.show()
+    
 
 def main(img_file, new_name, model_file):
-    new_width, new_height  = 160, 160
+    new_width, new_height  = 224, 224
     
-    img = img_resize(new_width, new_height, img_file, new_name)
-    predict_image(model_file, img)
+    img_path = img_resize(new_width, new_height, img_file, new_name)
+    predict_image(model_file, img_path)
 
 
-main('00_4_0002.png', '00_4_0002_resized.png', 'model1.hdf5')
+main('A.png', 'A_resized.png', 'basic_h5_model.h5')
