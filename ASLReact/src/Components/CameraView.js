@@ -1,6 +1,7 @@
 'use strict';
 import React, { PureComponent } from 'react';
 import { AppRegistry, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import CameraRoll from "@react-native-community/cameraroll";
 import { RNCamera } from 'react-native-camera';
 
 class CameraView extends PureComponent {
@@ -39,6 +40,7 @@ class CameraView extends PureComponent {
       if (this.camera) {
         const options = { quality: 0.5, base64: true };
         const data = await this.camera.takePictureAsync(options);
+        CameraRoll.saveToCameraRoll(data.uri);
         console.log(data.uri);
       }
     };
