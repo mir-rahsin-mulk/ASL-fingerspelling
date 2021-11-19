@@ -29,23 +29,13 @@ class CameraView extends PureComponent {
             }}
           />
           <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
-            <TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.capture}>
+            <TouchableOpacity onPress={this.props.takePicture.bind(this)} style={styles.capture}>
               <Text style={{ fontSize: 14 }}> SNAP </Text>
             </TouchableOpacity>
           </View>
         </View>
       );
     }
-  
-    takePicture = async () => {
-      if (this.camera) {
-        const options = { quality: 0.5, base64: true };
-        const data = await this.camera.takePictureAsync(options);
-        CameraRoll.saveToCameraRoll(data.uri);
-        console.log(data.uri);
-        navigate('Score')
-      }
-    };
   }
   
   const styles = StyleSheet.create({

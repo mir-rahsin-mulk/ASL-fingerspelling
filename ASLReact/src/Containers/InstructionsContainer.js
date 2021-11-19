@@ -15,7 +15,8 @@ import { useLazyFetchOneQuery } from '@/Services/modules/users'
 import { changeTheme } from '@/Store/Theme'
 import { navigate } from '../Navigators/utils'
 
-const InstructionsContainer = () => {
+const InstructionsContainer = ({ route }) => {
+  const { letter } = route.params
   const { t } = useTranslation()
   const { Common, Fonts, Gutters, Layout } = useTheme()
   const dispatch = useDispatch()
@@ -23,18 +24,19 @@ const InstructionsContainer = () => {
     fetchOne,
     { data, isSuccess, isLoading, isFetching, error },
   ] = useLazyFetchOneQuery()
+  const instruction = `instruction${letter}`
 
   return (
     <View
       style={Layout.screenContainer}
     >
-      <Text style={[Fonts.titleRegular, Layout.center, Gutters.regularBMargin]}>{'A'}</Text>
-      <View style={[Fonts.textRegular, Layout.center, Gutters.regularBMargin]}><FingerSign /></View>
-      <Text style={[Fonts.textRegular, Layout.center, Gutters.regularBMargin]}>{t('instructionA')}</Text>
+      <Text style={[Fonts.titleRegular, Layout.center, Gutters.regularBMargin]}>{letter}</Text>
+      <View style={[Fonts.textRegular, Layout.center, Gutters.regularBMargin]}><FingerSign letter={letter}/></View>
+      <Text style={[Fonts.textRegular, Layout.center, Gutters.regularBMargin]}>{t(instruction)}</Text>
       <Text style={[Fonts.textRegular, Gutters.regularBMargin]}>{t('instructionBody')}</Text>
       <TouchableOpacity
         style={[Common.button.rounded, Gutters.regularBMargin]}
-        onPress={() => navigate('Camera')}
+        onPress={() => navigate('Camera', {letter: letter})}
       >
         <Text style={Fonts.textRegular}>{t('instructionStartButton')}</Text>
       </TouchableOpacity>

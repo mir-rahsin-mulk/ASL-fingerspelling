@@ -10,18 +10,28 @@ export const hasCameraPermission = async ()=>{
   return result;
 }
 
-const CameraContainer = () => {
+const CameraContainer = ({ route }) => {
+  const { letter } = route.params
   const isFocused = useIsFocused();
 
-  // ...
+  takePicture = async () => {
+    if (this.camera) {
+      const options = { quality: 0.5, base64: true };
+      const data = await this.camera.takePictureAsync(options);
+      CameraRoll.saveToCameraRoll(data.uri);
+      console.log(data.uri);
+      navigate('Score', {letter: letter})
+    }
+  };
 
   if (hasCameraPermission === false) {
     return <Text>No access to camera</Text>;
   } else if (hasCameraPermission !== null && isFocused) {
-    return <CameraView />;
+    return <CameraView takePicture={takePicture}/>;
   } else {
     return null;
   }
+  
 }
 
 export default CameraContainer

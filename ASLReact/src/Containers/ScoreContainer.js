@@ -14,7 +14,8 @@ import { useLazyFetchOneQuery } from '@/Services/modules/users'
 import { changeTheme } from '@/Store/Theme'
 import { navigate } from '../Navigators/utils'
 
-const ScoreContainer = () => {
+const ScoreContainer = ({ route }) => {
+  const { letter } = route.params
   const { t } = useTranslation()
   const { Common, Fonts, Gutters, Layout } = useTheme()
   const dispatch = useDispatch()
@@ -30,6 +31,7 @@ const ScoreContainer = () => {
       <Text style={[Fonts.textRegular, Layout.center, Gutters.regularBMargin]}>{t('scoreBody', { score: 'nil' })}</Text>
       <TouchableOpacity
         style={[Common.button.rounded, Gutters.regularBMargin]}
+        onPress={() => navigate('Instructions', {letter: letter})}
       >
         <Text style={Fonts.textRegular}>{t('scoreButtonTry')}</Text>
       </TouchableOpacity>
