@@ -5,10 +5,8 @@ from PIL import Image
 import sys
 import tensorflow as tf
 from tensorflow import keras
-from tensorflow.keras.applications.resnet50 import preprocess_input
-import keras.applications.vgg16 as vgg16
-import keras
-from keras.preprocessing import image
+from tensorflow.keras.applications.vgg16 import preprocess_input
+from tensorflow.keras.preprocessing import image
 
 def img_resize(width, height, img_file, new_name=None):
     img_path = os.path.join('images', img_file)
@@ -51,4 +49,4 @@ def main(img_file, new_name, model_file):
     predict_image(model_file, img_path)
 
 
-main('A.png', 'A_resized.png', 'basic_h5_model.h5')
+main('hand.jpg', 'hand_resized.jpg', 'basic_h5_model.h5')
