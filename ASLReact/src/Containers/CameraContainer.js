@@ -22,7 +22,7 @@ const CameraContainer =({ route }) => {
   if (hasCameraPermission === false) {
     return <Text>No access to camera</Text>;
   } else if (hasCameraPermission !== null && isFocused) {
-    return <CameraView navigateToScore={navigateToScore} letter={letter}/>;
+    return <CameraView />;
   } else {
     return null;
   }

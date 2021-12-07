@@ -1,63 +1,90 @@
 'use strict';
-import React, { PureComponent } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { AppRegistry, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import CameraRoll from "@react-native-community/cameraroll";
-import { RNCamera } from 'react-native-camera';
+import { Camera } from 'expo-camera';
 
-import * as tf from '@tensorflow/tfjs';
+// import * as tf from '@tensorflow/tfjs';
 import '@tensorflow/tfjs-react-native';
 
-class CameraView extends PureComponent {
-    render() {
-      return (
-        <View style={styles.container}>
-          <RNCamera
-            ref={ref => {
-              this.camera = ref;
-            }}
-            style={styles.preview}
-            type={RNCamera.Constants.Type.front}
-            androidCameraPermissionOptions={{
-              title: 'Permission to use camera',
-              message: 'We need your permission to use your camera',
-              buttonPositive: 'Ok',
-              buttonNegative: 'Cancel',
-            }}
-            androidRecordAudioPermissionOptions={{
-              title: 'Permission to use audio recording',
-              message: 'We need your permission to use your audio',
-              buttonPositive: 'Ok',
-              buttonNegative: 'Cancel',
-            }}
-          />
-          <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
-            <TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.capture}>
-              <Text style={{ fontSize: 14 }}> SNAP </Text>
+export default function CameraView () {
+  const [hasPermission, setHasPermission] = useState(null);
+  const [type, setType] = useState(Camera.Constants.Type.front);
+  const [isCameraReady, setIsCameraReady] = useState(false);
+  const cameraRef = useRef();
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      setHasPermission(status === 'granted');
+    })();
+  }, []);
+
+  
+  const onSnap = async () => {
+    if (cameraRef.current) {
+      const options = { quality: 0.5, base64: true };
+      const data = await cameraRef.current.takePictureAsync(options);
+      const source = data.base64;
+      CameraRoll.saveToCameraRoll(data.uri);
+      console.log(data.uri);
+
+      // await tf.ready();
+      // tf.image.resize_images(data.uri)
+      // tf.image.resize(
+      //   data.uri, (224, 224), method=ResizeMethod.BILINEAR, preserve_aspect_ratio=False,
+      // )
+      // const imageTensor = decodeJpeg(imageData);
+      // const model = await tf.loadLayersModel('@/Assets/Models/model.json');
+      // const prediction = (await model.predict(imageTensor))[0];
+      // console.log(prediction);
+      this.props.navigateToScore();
+    }
+  };
+
+  if (hasPermission === null) {
+    return <View />;
+  }
+  if (hasPermission === false) {
+    return <Text>No access to camera</Text>;
+  }
+  const onCameraReady = () => {
+    setIsCameraReady(true);
+  };
+  return (
+    <View style={styles.container}>
+      <Camera
+        style={styles.preview}
+        type={type} ratio={"16:9"}
+        ref={cameraRef}
+        onCameraReady={onCameraReady}
+      >
+        <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
+            <TouchableOpacity
+              disabled={!isCameraReady}
+              onPress={onSnap} 
+              style={styles.capture}
+            >
+                <Text style={{ fontSize: 14 }}> SNAP </Text>
             </TouchableOpacity>
           </View>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              setType(
+                type === Camera.Constants.Type.back
+                  ? Camera.Constants.Type.front
+                  : Camera.Constants.Type.back
+              );
+            }}>
+            <Text style={styles.text}> Flip </Text>
+          </TouchableOpacity>
         </View>
-      );
-    }
+      </Camera>
+    </View>
+  );
   
-    takePicture = async () => {
-      if (this.camera) {
-        const options = { quality: 0.5, base64: true };
-        const data = await this.camera.takePictureAsync(options);
-        CameraRoll.saveToCameraRoll(data.uri);
-        console.log(data.uri);
-
-        await tf.ready();
-        tf.image.resize_images(data.uri)
-        tf.image.resize(
-          data.uri, (224, 224), method=ResizeMethod.BILINEAR, preserve_aspect_ratio=False,
-        )
-        const imageTensor = decodeJpeg(imageData);
-        const model2 = '@/Assets/Models/basic_h5_model.h5'
-        const prediction = (await model2.predict(imageTensor))[0];
-        console.log(prediction)
-        this.props.navigateToScore()
-      }
-    };
   }
   
   const styles = StyleSheet.create({
@@ -81,5 +108,3 @@ class CameraView extends PureComponent {
       margin: 20,
     },
   });
-
-export default CameraView
