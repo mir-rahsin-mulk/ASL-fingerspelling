@@ -3,9 +3,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { AppRegistry, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import CameraRoll from "@react-native-community/cameraroll";
 import { Camera } from 'expo-camera';
+import RNFS from 'react-native-fs';
 
-// import * as tf from '@tensorflow/tfjs';
-import '@tensorflow/tfjs-react-native';
+
+import {util} from '@tensorflow/tfjs';
+import {decodeJpeg} from '@tensorflow/tfjs-react-native';
+import * as FileSystem from 'expo-file-system'
 
 export default function CameraView () {
   const [hasPermission, setHasPermission] = useState(null);
@@ -28,12 +31,31 @@ export default function CameraView () {
       const source = data.base64;
       CameraRoll.saveToCameraRoll(data.uri);
       console.log(data.uri);
+      const fileUri = data.uri;   
+      const imgB64 = await FileSystem.readAsStringAsync(fileUri, {
+        encoding: FileSystem.EncodingType.Base64,
+      });
+      const imgBuffer = util.encodeString(imgB64, 'base64').buffer;
+      const raw = new Uint8Array(imgBuffer)  
+      const imageTensor = decodeJpeg(raw);
+
+
+      
+      // // const response = await fetch(data.uri, {}, { isBinary: true });
+      // const imageDataArrayBuffer = data.uri.arrayBuffer();
+      // const imageData = new Uint8Array(imageDataArrayBuffer);
+      // const imageDate = '<some base64 data>';
+      // const imagePath = `${RNFS.TemporaryDirectoryPath}image.jpeg`;
+
+      // RNFS.writeFile(imagePath, source, 'base64')
+      //   .then(() => console.log('Image converted to jpg and saved at ' + imagePath));
 
       // await tf.ready();
       // tf.image.resize_images(data.uri)
       // tf.image.resize(
-      //   data.uri, (224, 224), method=ResizeMethod.BILINEAR, preserve_aspect_ratio=False,
+      //   data.uri, (224, 224), preserve_aspect_ratio=False,
       // )
+      // const image = require(source)
       // const imageTensor = decodeJpeg(imageData);
       // const model = await tf.loadLayersModel('@/Assets/Models/model.json');
       // const prediction = (await model.predict(imageTensor))[0];
