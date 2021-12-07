@@ -3,8 +3,8 @@ import React, { PureComponent } from 'react';
 import { AppRegistry, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import CameraRoll from "@react-native-community/cameraroll";
 import { RNCamera } from 'react-native-camera';
-import * as tf from '@tensorflow/tfjs';
-import '@tensorflow/tfjs-react-native';
+// import * as tf from '@tensorflow/tfjs';
+// import '@tensorflow/tfjs-react-native';
 
 class CameraView extends PureComponent {
     render() {
@@ -45,14 +45,14 @@ class CameraView extends PureComponent {
         CameraRoll.saveToCameraRoll(data.uri);
         console.log(data.uri);
 
-        await tf.ready();
-        tf.image.resize_images(data.uri)
-        tf.image.resize(
-          data.uri, (224, 224), method=ResizeMethod.BILINEAR, preserve_aspect_ratio=False,
-        )
-        const imageTensor = decodeJpeg(imageData);
-        const prediction = (await model.predict(imageTensor))[0];
-        console.log(prediction)
+        // await tf.ready();
+        // tf.image.resize_images(data.uri)
+        // tf.image.resize(
+        //   data.uri, (224, 224), method=ResizeMethod.BILINEAR, preserve_aspect_ratio=False,
+        // )
+        // const imageTensor = decodeJpeg(imageData);
+        // const prediction = (await model.predict(imageTensor))[0];
+        // console.log(prediction)
         this.props.navigateToScore()
       }
     };
