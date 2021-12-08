@@ -6,9 +6,9 @@ import { Camera } from 'expo-camera';
 import RNFS from 'react-native-fs';
 
 
-import {util} from '@tensorflow/tfjs';
-import {decodeJpeg} from '@tensorflow/tfjs-react-native';
-import * as FileSystem from 'expo-file-system'
+import * as tf from '@tensorflow/tfjs';
+// import {decodeJpeg} from '@tensorflow/tfjs-react-native';
+// import * as FileSystem from 'expo-file-system'
 
 export default function CameraView () {
   const [hasPermission, setHasPermission] = useState(null);
@@ -31,13 +31,13 @@ export default function CameraView () {
       const source = data.base64;
       CameraRoll.saveToCameraRoll(data.uri);
       console.log(data.uri);
-      const fileUri = data.uri;   
-      const imgB64 = await FileSystem.readAsStringAsync(fileUri, {
-        encoding: FileSystem.EncodingType.Base64,
-      });
-      const imgBuffer = util.encodeString(imgB64, 'base64').buffer;
-      const raw = new Uint8Array(imgBuffer)  
-      const imageTensor = decodeJpeg(raw);
+      // const fileUri = data.uri;   
+      // const imgB64 = await FileSystem.readAsStringAsync(fileUri, {
+      //   encoding: FileSystem.EncodingType.Base64,
+      // });
+      // const imgBuffer = tf.util.encodeString(imgB64, 'base64').buffer;
+      // const raw = new Uint8Array(imgBuffer)  
+      // const imageTensor = decodeJpeg(raw);
 
 
       
