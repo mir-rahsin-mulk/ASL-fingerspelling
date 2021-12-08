@@ -7,8 +7,8 @@ import RNFS from 'react-native-fs';
 
 
 import * as tf from '@tensorflow/tfjs';
-// import {decodeJpeg} from '@tensorflow/tfjs-react-native';
-// import * as FileSystem from 'expo-file-system'
+import {decodeJpeg} from '@tensorflow/tfjs-react-native';
+import * as FileSystem from 'expo-file-system'
 
 export default function CameraView () {
   const [hasPermission, setHasPermission] = useState(null);
