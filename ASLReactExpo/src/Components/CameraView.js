@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import { Camera } from 'expo-camera';
+// import modelJson from '@/Assets/Models/model.json';
 
 
 import * as tf from '@tensorflow/tfjs';
-import {decodeJpeg} from '@tensorflow/tfjs-react-native';
+import { fetch, decodeJpeg, bundleResourceIO } from '@tensorflow/tfjs-react-native';
 
 export default function CameraView () {
   const [hasPermission, setHasPermission] = useState(null);
@@ -26,39 +27,39 @@ export default function CameraView () {
       console.log("snapping2")
       const options = { quality: 0.5, base64: true };
       const data = await cameraRef.current.takePictureAsync(options);
-      // const source = data.base64;
-      // CameraRoll.saveToCameraRoll(data.uri);
-      console.log(data.uri);
-      // const fileUri = data.uri;   
-      // const imgB64 = await FileSystem.readAsStringAsync(fileUri, {
-      //   encoding: FileSystem.EncodingType.Base64,
-      // });
-      // const imgBuffer = tf.util.encodeString(imgB64, 'base64').buffer;
-      // const raw = new Uint8Array(imgBuffer)  
-      const imageTensor = decodeJpeg(data.uri);
-
-
       
-      // // const response = await fetch(data.uri, {}, { isBinary: true });
-      // const imageDataArrayBuffer = data.uri.arrayBuffer();
-      // const imageData = new Uint8Array(imageDataArrayBuffer);
-      // const imageDate = '<some base64 data>';
-      // const imagePath = `${RNFS.TemporaryDirectoryPath}image.jpeg`;
-
-      // RNFS.writeFile(imagePath, source, 'base64')
-      //   .then(() => console.log('Image converted to jpg and saved at ' + imagePath));
-
       await tf.ready();
-      // tf.image.resize_images(data.uri)
-      // tf.image.resize(
-      //   data.uri, (224, 224), preserve_aspect_ratio=False,
-      // )
-      // const image = require(source)
-      // const imageTensor = decodeJpeg(imageData);
-      // const model = await tf.loadLayersModel('@/Assets/Models/model.json');
-      // const prediction = (await model.predict(imageTensor))[0];
-      // console.log(prediction);
+      // setIsTfReady(true);
+
+      // Start inference and show result.
+      const image = require('@/Assets/Images/A.jpg');
+      const imageAssetPath = Image.resolveAssetSource(image);
+      console.log(imageAssetPath.uri)
+      console.log(data.uri)
+      const response = await fetch(imageAssetPath.uri, {}, { isBinary: true });
+      const imageDataArrayBuffer = await response.arrayBuffer();
+      const imageData = new Uint8Array(imageDataArrayBuffer);
+      const imageTensor = decodeJpeg(imageData);
+      console.log(imageTensor)
+      const modelJson = require('@/Assets/Models/model.json');
+      const modelWeights = require('@/Assets/Models/group1-shard1of1.bin')
+      
+      const model = await tf.loadLayersModel(bundleResourceIO(modelJson, modelWeights))
+      console.log(model)
+      const prediction = await model.classify(imageTensor);
+      if (prediction && prediction.length > 0) {
+        setResult(
+          `${prediction[0].className} (${prediction[0].probability.toFixed(3)})`
+        );
+      }
+      
+      // const prediction = (await model.predict(data.uri))[0];
+      console.log(prediction);
       this.props.navigateToScore();
+      
+      
+      
+      
     }
   };
 
