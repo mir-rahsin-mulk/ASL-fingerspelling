@@ -13,8 +13,6 @@ import { useTheme } from '@/Hooks'
 import { useLazyFetchOneQuery } from '@/Services/modules/users'
 import { changeTheme } from '@/Store/Theme'
 import { navigate } from '../Navigators/utils'
-import * as tf from '@tensorflow/tfjs';
-import '@tensorflow/tfjs-react-native';
 
 const WelcomeContainer = () => {
   const { t } = useTranslation()
@@ -30,13 +28,6 @@ const WelcomeContainer = () => {
   }
 
   const [tfReady, setTFReady] = useState('false');
-
-  useEffect(() => {
-    (async () => {
-      await tf.ready();
-      setTFReady('true');
-    })();
-  }, []);
 
   return (
     <View

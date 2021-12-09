@@ -32,7 +32,7 @@ export default function CameraView () {
       // setIsTfReady(true);
 
       // Start inference and show result.
-      const image = require('@/Assets/Images/A.jpg');
+      const image = require('@/Assets/Images/A_resized.jpg');
       const imageAssetPath = Image.resolveAssetSource(image);
       console.log(imageAssetPath.uri)
       console.log(data.uri)
@@ -46,20 +46,15 @@ export default function CameraView () {
       
       const model = await tf.loadLayersModel(bundleResourceIO(modelJson, modelWeights))
       model.summary()
+
       const reshapedTensor = imageTensor.expandDims(0, null);
-      const prediction = await model.predict(reshapedTensor);
-      if (prediction && prediction.length > 0) {
-        setResult(
-          `${prediction[0].className} (${prediction[0].probability.toFixed(3)})`
-        );
-      }
-      
-      // const prediction = (await model.predict(data.uri))[0];
-      console.log(prediction);
-      this.props.navigateToScore();
-      
-      
-      
+      console.log(reshapedTensor)
+      console.log("predicting...")
+      const prediction = await model.predict([reshapedTensor]);
+      const results = prediction.argMax(1).dataSync()[0]
+
+      console.log(results);
+      console.log("done")
       
     }
   };
