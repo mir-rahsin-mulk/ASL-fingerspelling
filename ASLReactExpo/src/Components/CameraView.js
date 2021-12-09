@@ -45,8 +45,9 @@ export default function CameraView () {
       const modelWeights = require('@/Assets/Models/group1-shard1of1.bin')
       
       const model = await tf.loadLayersModel(bundleResourceIO(modelJson, modelWeights))
-      console.log(model)
-      const prediction = await model.classify(imageTensor);
+      model.summary()
+      const reshapedTensor = imageTensor.expandDims(0, null);
+      const prediction = await model.predict(reshapedTensor);
       if (prediction && prediction.length > 0) {
         setResult(
           `${prediction[0].className} (${prediction[0].probability.toFixed(3)})`
