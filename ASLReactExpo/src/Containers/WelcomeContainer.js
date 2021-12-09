@@ -13,6 +13,8 @@ import { useTheme } from '@/Hooks'
 import { useLazyFetchOneQuery } from '@/Services/modules/users'
 import { changeTheme } from '@/Store/Theme'
 import { navigate } from '../Navigators/utils'
+import * as tf from '@tensorflow/tfjs';
+import '@tensorflow/tfjs-react-native';
 
 const WelcomeContainer = () => {
   const { t } = useTranslation()
@@ -27,6 +29,15 @@ const WelcomeContainer = () => {
     dispatch(changeTheme({ theme, darkMode }))
   }
 
+  const [tfReady, setTFReady] = useState('false');
+
+  useEffect(() => {
+    (async () => {
+      await tf.ready();
+      setTFReady('true');
+    })();
+  }, []);
+
   return (
     <View
       style={Layout.screenContainer}
@@ -38,19 +49,6 @@ const WelcomeContainer = () => {
         onPress={() => navigate('Home')}
       >
         <Text style={Fonts.textRegular}>{t('welcomeButton')}</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={[Common.button.outlineRounded, Gutters.regularBMargin]}
-        onPress={() => onChangeTheme({ darkMode: true })}
-      >
-        <Text style={Fonts.textRegular}>Dark</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={[Common.button.outlineRounded, Gutters.regularBMargin]}
-        onPress={() => onChangeTheme({ darkMode: false })}
-      >
-        <Text style={Fonts.textRegular}>Light</Text>
       </TouchableOpacity>
     </View>
   )

@@ -3,6 +3,8 @@ import React, { PureComponent } from 'react';
 import { AppRegistry, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import CameraRoll from "@react-native-community/cameraroll";
 import { RNCamera } from 'react-native-camera';
+import * as tf from '@tensorflow/tfjs';
+import '@tensorflow/tfjs-react-native';
 
 class CameraView extends PureComponent {
     render() {
@@ -37,6 +39,8 @@ class CameraView extends PureComponent {
     }
   
     takePicture = async () => {
+      await tf.ready();
+      console.log('ehere');
       if (this.camera) {
         const options = { quality: 0.5, base64: true };
         const data = await this.camera.takePictureAsync(options);
