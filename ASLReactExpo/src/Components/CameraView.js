@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import { Camera } from 'expo-camera';
+import * as FileSystem from 'expo-file-system';
 // import modelJson from '@/Assets/Models/model.json';
 
 
@@ -27,6 +28,11 @@ export default function CameraView () {
       console.log("snapping2")
       const options = { quality: 0.5, base64: true };
       const data = await cameraRef.current.takePictureAsync(options);
+      const imgB64 = await FileSystem.readAsStringAsync(data.uri, {
+        encoding: FileSystem.EncodingType.Base64,
+      });
+      const imgBuffer = tf.util.encodeString(imgB64, 'base64').buffer;
+      const raw = new Uint8Array(imgBuffer)  
       
       await tf.ready();
       // setIsTfReady(true);
@@ -36,10 +42,11 @@ export default function CameraView () {
       const imageAssetPath = Image.resolveAssetSource(image);
       console.log(imageAssetPath.uri)
       console.log(data.uri)
+      
       const response = await fetch(imageAssetPath.uri, {}, { isBinary: true });
       const imageDataArrayBuffer = await response.arrayBuffer();
       const imageData = new Uint8Array(imageDataArrayBuffer);
-      const imageTensor = decodeJpeg(imageData);
+      const imageTensor = decodeJpeg(raw);
       console.log(imageTensor)
       const modelJson = require('@/Assets/Models/model.json');
       const modelWeights = require('@/Assets/Models/group1-shard1of1.bin')
