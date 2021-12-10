@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as FileSystem from 'expo-file-system';
+import { manipulateAsync, SaveFormat } from 'expo-image-manipulator';
 // import modelJson from '@/Assets/Models/model.json';
 
 
@@ -28,34 +29,31 @@ export default function CameraView () {
       console.log("snapping2")
       const options = { quality: 0.5, base64: true };
       const data = await cameraRef.current.takePictureAsync(options);
-      const imgB64 = await FileSystem.readAsStringAsync(data.uri, {
+      console.log(data.uri)
+
+      await tf.ready();
+
+      // resize image and make tensor
+      const manipResult = await manipulateAsync(
+          data.uri,
+          [{ resize: { width: 224, height: 224 } }],
+          { format: SaveFormat.JPEG }
+      );
+      const imgB64 = await FileSystem.readAsStringAsync(manipResult.uri, {
         encoding: FileSystem.EncodingType.Base64,
       });
       const imgBuffer = tf.util.encodeString(imgB64, 'base64').buffer;
-      const raw = new Uint8Array(imgBuffer)  
-      
-      await tf.ready();
-      // setIsTfReady(true);
-
-      // Start inference and show result.
-      const image = require('@/Assets/Images/A_resized.jpg');
-      const imageAssetPath = Image.resolveAssetSource(image);
-      console.log(imageAssetPath.uri)
-      console.log(data.uri)
-      
-      const response = await fetch(imageAssetPath.uri, {}, { isBinary: true });
-      const imageDataArrayBuffer = await response.arrayBuffer();
-      const imageData = new Uint8Array(imageDataArrayBuffer);
+      const raw = new Uint8Array(imgBuffer)
       const imageTensor = decodeJpeg(raw);
-      console.log(imageTensor)
+      const reshapedTensor = imageTensor.expandDims(0, null);
+      console.log(reshapedTensor)
+
+      // load model and make prediction
       const modelJson = require('@/Assets/Models/model.json');
       const modelWeights = require('@/Assets/Models/group1-shard1of1.bin')
       
       const model = await tf.loadLayersModel(bundleResourceIO(modelJson, modelWeights))
       model.summary()
-
-      const reshapedTensor = imageTensor.expandDims(0, null);
-      console.log(reshapedTensor)
       console.log("predicting...")
       const prediction = await model.predict([reshapedTensor]);
       const results = prediction.argMax(1).dataSync()[0]
