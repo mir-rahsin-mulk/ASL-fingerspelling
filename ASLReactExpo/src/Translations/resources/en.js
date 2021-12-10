@@ -30,9 +30,9 @@ export default {
   instructionZ: 'The picture shows the Z sign. The palm faces forward. Index finger draws sign in air.',
   instructionStartButton: 'Start Test',
   instructionBody: 'Click the button to try it yourself!',
-  scoreBody: 'You scored {{score}}!',
+  scoreBody: 'You signed {{score}}',
   scoreButtonTry: 'Try again',
-  scoreButtonHome: 'Go home',
+  scoreButtonHome: 'Choose another Letter',
   actions: {
     continue: 'Continue',
   },

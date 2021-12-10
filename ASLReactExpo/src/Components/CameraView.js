@@ -9,7 +9,7 @@ import { manipulateAsync, SaveFormat } from 'expo-image-manipulator';
 import * as tf from '@tensorflow/tfjs';
 import { fetch, decodeJpeg, bundleResourceIO } from '@tensorflow/tfjs-react-native';
 
-export default function CameraView () {
+export default function CameraView ({ navigateToScore, letter}) {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.front);
   const [isCameraReady, setIsCameraReady] = useState(false);
@@ -60,7 +60,7 @@ export default function CameraView () {
 
       console.log(results);
       console.log("done")
-      
+      navigateToScore(results)
     }
   };
 

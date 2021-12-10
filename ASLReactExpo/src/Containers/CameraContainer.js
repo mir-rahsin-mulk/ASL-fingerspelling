@@ -15,14 +15,15 @@ const CameraContainer =({ route }) => {
   const { letter } = route.params
   const isFocused = useIsFocused();
 
-  const navigateToScore = () => {
-    navigate('Score', {letter: letter})
+  const navigateToScore = (predictedLetter) => {
+    console.log(predictedLetter)
+    navigate('Score', {letter: letter, predictedLetter: predictedLetter})
   }
 
   if (hasCameraPermission === false) {
     return <Text>No access to camera</Text>;
   } else if (hasCameraPermission !== null && isFocused) {
-    return <CameraView navigateToScore={navigateToScore} letter={letter}/>;
+    return <CameraView navigateToScore={navigateToScore}/>;
   } else {
     return null;
   }
