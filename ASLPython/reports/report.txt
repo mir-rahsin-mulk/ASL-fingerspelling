@@ -1,0 +1,1 @@
+basic epoch 32, batch 20: Test accuracy: 50.6266%
