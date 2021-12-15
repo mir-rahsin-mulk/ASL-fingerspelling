@@ -21,4 +21,4 @@ def pruneData(indexTest, indexTrain, indexVal):
                     # print(n)
                     os.unlink(os.path.join(dirPath,file))
 
-pruneData(0, 0, 3)
+pruneData(2, 2, 2)
