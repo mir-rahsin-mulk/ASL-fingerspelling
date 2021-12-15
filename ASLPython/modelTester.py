@@ -71,4 +71,4 @@ def main(img_file, new_name, model_file):
     predict_image(model_file, img_path, target_size=(new_width, new_height))
 
 
-main('00_4_0002.png', 'A_resized.jpg', 'models/basic_h5_model.h5')
+main('A.jpg', 'A_resized.jpg', 'models/basic_h5_model_epoch16.h5')
