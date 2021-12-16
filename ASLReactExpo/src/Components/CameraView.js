@@ -36,7 +36,7 @@ export default function CameraView ({ navigateToScore, letter}) {
       // resize image and make tensor
       const manipResult = await manipulateAsync(
           data.uri,
-          [{ resize: { width: 224, height: 224 } }],
+          [{ resize: { width: 160, height: 160 } }],
           { format: SaveFormat.JPEG }
       );
       const imgB64 = await FileSystem.readAsStringAsync(manipResult.uri, {
